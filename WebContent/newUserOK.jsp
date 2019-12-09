@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="recursos/css/styles.css">
 
 
-<title>Registro</title>
+<title>Usuario nuevo</title>
 </head>
 
 
@@ -31,35 +31,12 @@
 		src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script
 		src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!------ Include the above in your HEAD tag ---------->
-
-	<div class="wrapper fadeInDown">
-		<div id="formContent">
-			<!-- Tabs Titles -->
-
-			<!-- Icon -->
-			<div class="fadeIn first">
-				<img src="recursos/img/Nuevo%20Dibujo%204.png" style="width: 78px;padding: 17px;margin: -16px;" id="icon" alt="User Icon" />
-			</div>
-			<br>
-			<!-- Register Form -->
-			<form action="NewUserController" method="post">
-				<input type="text" id="dni" class="fadeIn second" name="dni"
-					placeholder="Introduzca su dni con la letra en mayúscula">
-					
-				<input type="text" id="name" class="fadeIn second" name="nombre"
-					placeholder="Introduzca su nombre"> 
-					
-				<input type="text"
-					id="user" class="fadeIn second" name="user"
-					placeholder="Introduzca un nombre de usuario"> 
-					
-				<input type="password" id="pass" class="fadeIn third" name="password"
-					placeholder="Introduzca una contraseña"> 
-				<input type="submit" class="fadeIn fourth" value="Registro">
-   			 </form>
-  </div>
-</div>
+	
+	<div class="container">
+        <h1 class="text-center" style="height: 95px;"><br>Bienvenido <%=request.getAttribute("user") %><br><br></h1>
+        <p class="text-center" style="height: 95px;margin: 12px;"><br>Enhorabuena! Acabas de registrarte con éxito en la web NBA Database.<br><br></p>
+    	<a href="index.jsp">Volver a la página de inicio</a>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

@@ -166,7 +166,32 @@ public class Modelo {
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+		DataBaseConnection db = new DataBaseConnection("sllop", "Temp2019$$");
+		try {
+			db.insertaUsuario(this.usuario);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
 	}
 
-    
+    public List<Equipo> equiposPorConferencia(int idConferencia){
+    	DataBaseConnection db = new DataBaseConnection("sllop", "Temp2019$$");
+    	equipos = new ArrayList<Equipo>();
+    	try {
+			ResultSet rs = db.dameEquiposPorConferencia(idConferencia);
+			
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String nombre = rs.getString("nombre");
+				
+				equipos.add(new Equipo(id, nombre));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return equipos;
+    }
 }

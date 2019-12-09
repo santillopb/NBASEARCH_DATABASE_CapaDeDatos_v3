@@ -35,7 +35,7 @@
     </div>
 
     <!-- Login Form -->
-    <form action="RecibeLoginController" method=post>
+    <form action="PrincipalController" method=post>
       <input type="text" id="user" class="fadeIn second" name="user" placeholder="Usuario">
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="Contraseña">
       <input type="submit" class="fadeIn fourth" value="Entrar">

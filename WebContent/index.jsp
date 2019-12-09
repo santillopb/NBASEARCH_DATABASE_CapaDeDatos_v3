@@ -22,7 +22,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Página de inicio</title>
 </head>
 
 <body>
@@ -47,92 +47,7 @@
     <div class="container">
         <h1 class="text-center" style="height: 95px;"><br>Base de datos NBA<br><br></h1>
         <p class="text-center" style="height: 95px;margin: 12px;"><br>Busca los jugadores o equipos que quieras, consulta sus estadísticas e incluso comprueba la clasificación en tiempo real gracias a NBA Database.<br><br></p>
-    	<table border="2">
-    		<thead>
-    			<tr>
-    				<th>Lista de Equipos</th>
-    				<th colspan="6">Lista de Jugadores</th>
-    			</tr>
-    		</thead>
-    		<tbody>
-    			<% Modelo m = new Modelo();
-    			   List<Equipo> equipos = m.getJugadoresPorEquipo();
-    			   for(Equipo e: equipos) {
-    				   List<Jugador> jugadores = e.getJugadores();
-    				   if(jugadores.size() == 0) {
-    					   %><tr>
-   				   				<td><%=e.getNombre() %></td><td colspan="6"></td>
-   				     		 </tr>
-   				     	   <%
-    				   } else{
-    					   %>
-    					   <tr>
-    					   		<td rowspan="<%=jugadores.size()+1 %>"><%=e.getNombre() %></td>
-    					   		<th>Nombre</th><th>Apellidos</th><th>Posicion</th><th>Altura</th><th>Peso</th><th>Dorsal</th>
-    					   </tr>
-    					   <%  
-				   			for(Jugador j: jugadores) {
-				   				// Creamos el objeto posicion
-				   				Posicion p = new Posicion();
-				   				// Asignamos el idPosicion del objeto jugador al Id del objeto posicion
-				   				p.setId(j.getIdPosicion());
-				   				// Llamamos al modelo para que rellene el nombre de la posicion
-				   				Posicion p2 = m.getPosicion(p);
-				   			
-				   				%>
-				   					<tr>
-				   						<td><%=j.getNombre() %></td>
-				   						<td><%=j.getApellidos() %></td>
-				   						<td><%=p2.getPosicion() %></td>
-				   						<td><%=j.getAltura() %></td>
-				   						<td><%=j.getPeso() %></td>
-				   						<td><%=j.getDorsal() %></td>
-				   					</tr>
-				   						
-				   					
-				   				<%
-				   			}
-				   		
-    				   }
-    				   
-    				     	
-    				   	 
-    				  
-    				 }
-    			   %>
-    			
-    		</tbody>
-    	</table>
     	
-    	<table border="2">
-    		<thead>
-    			<tr>
-    				<th>Lista de Equipos</th>
-    			</tr>
-    		</thead>
-    		<tbody>
-    			<% 
-    				for(Equipo e: equipos) {
-    					%>
-    						<tr>
-    							<td><a href="jugadoresEquipo.jsp?equipo=<%=e.getNombre()  %>"><%=e.getNombre() %></a></td>
-    						</tr>
-    					<%
-    				}
-    			%>
-    		</tbody>
-    	</table>
-    	<select id="listaEquipos">
-    		<option></option>
-    		<% 
-    				for(Equipo e: equipos) {
-    					%>
-    					
-    						<option value="<%=e.getNombre() %>"><%=e.getNombre() %></option>
-    					<%
-    				}
-    			%>
-    	</select>
     </div>
     <div></div>
     <div>

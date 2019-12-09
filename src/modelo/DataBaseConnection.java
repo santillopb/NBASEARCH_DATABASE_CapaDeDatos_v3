@@ -137,4 +137,46 @@ public class DataBaseConnection {
 			return rs;
 		}
 
+		public ResultSet dameEquiposPorConferencia(int idConferencia) throws SQLException {
+			ResultSet rs = null;
+			
+			String query = "SELECT * FROM nba.equipo WHERE idConferencia=?";
+			
+			PreparedStatement stmt;
+			
+			try {
+				conn = getConnection();
+				stmt = conn.prepareStatement(query);
+				stmt.setInt(1, idConferencia);
+				rs = stmt.executeQuery();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return rs;
+		}
+
+		public void insertaUsuario(Usuario u) throws SQLException {
+			// TODO Auto-generated method stub			
+			String query = "INSERT INTO `nba`.`login` (`user`, `password`, `dni`, `nombre`)"
+					+ " VALUES (?, ?, ?, ?)";
+			
+			PreparedStatement stmt;
+			
+			try {
+				conn = getConnection();
+				stmt = conn.prepareStatement(query);
+				stmt.setString(1, u.getUser());
+				stmt.setString(2, u.getPassword());
+				stmt.setString(3, u.getDni());
+				stmt.setString(4, u.getNombre());
+				stmt.executeUpdate();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+
 }

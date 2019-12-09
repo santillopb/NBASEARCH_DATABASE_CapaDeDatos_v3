@@ -8,17 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import modelo.Modelo;
+import modelo.Usuario;
+
 /**
- * Servlet implementation class PaginaLogin
+ * Servlet implementation class PrincipalController
  */
-@WebServlet("/PaginaLogin")
-public class PaginaLogin extends HttpServlet {
+@WebServlet("/PrincipalController")
+public class PrincipalController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PaginaLogin() {
+    public PrincipalController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,17 +32,9 @@ public class PaginaLogin extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		// Recogemos la sesion
 		HttpSession sesion = request.getSession();
-		// Preguntamos si el usuario esta logueado
-		if(sesion.getAttribute("user") != null) {
-			// Si lo esta redirigimos a principal.jsp
-			request.getRequestDispatcher("principal.jsp").forward(request, response);
-		} else {
-			// Si no lo esta vamos a la pagina de logueo
-			request.getRequestDispatcher("login.jsp").forward(request, response);
-		}
-		
+		sesion.invalidate();
+		request.getRequestDispatcher("login.jsp").forward(request, response);	
 	}
 
 	/**
@@ -48,5 +43,23 @@ public class PaginaLogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		String user = request.getParameter("user");
+		String password = request.getParameter("password");
+		
+		HttpSession sesion = request.getSession();
+		
+		Usuario usuario = new Usuario(0, user, password);
+		Modelo m = new Modelo();
+		Usuario u = m.getUsuario(usuario);
+		
+	
+		//si coincide usuario y password y además no hay sesión iniciada
+		if(u != null && sesion.getAttribute("user") == null) {
+			sesion.setAttribute("user", user);
+			request.getRequestDispatcher("principal.jsp").forward(request, response);
+		} else {
+			request.getRequestDispatcher("login.jsp").forward(request, response);	
+		}
 	}
+
 }

@@ -6,22 +6,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import modelo.Modelo;
 import modelo.Usuario;
 
 /**
- * Servlet implementation class RecibeLoginController
+ * Servlet implementation class NewUserController
  */
-@WebServlet("/RecibeLoginController")
-public class RecibeLoginController extends HttpServlet {
+@WebServlet("/NewUserController")
+public class NewUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecibeLoginController() {
+    public NewUserController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,9 +31,6 @@ public class RecibeLoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession sesion = request.getSession();
-		sesion.invalidate();
-		request.getRequestDispatcher("login.jsp").forward(request, response);	
 	}
 
 	/**
@@ -43,23 +39,18 @@ public class RecibeLoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		
 		String user = request.getParameter("user");
 		String password = request.getParameter("password");
+		String dni = request.getParameter("dni");
+		String nombre = request.getParameter("nombre");
 		
-		HttpSession sesion = request.getSession();
-		
-		Usuario usuario = new Usuario(0, user, password);
+		Usuario u = new Usuario(0, user, password, dni, nombre);
 		Modelo m = new Modelo();
-		Usuario u = m.getUsuario(usuario);
+		m.setUsuario(u);
 		
-	
-		//si coincide usuario y password y además no hay sesión iniciada
-		if(u != null && sesion.getAttribute("user") == null) {
-			sesion.setAttribute("user", user);
-			request.getRequestDispatcher("loginExito.jsp").forward(request, response);
-		} else {
-			request.getRequestDispatcher("login.jsp").forward(request, response);	
-		}
+		request.setAttribute("user", u.getUser());
+		request.getRequestDispatcher("newUserOK.jsp").forward(request, response);	
 	}
 
 }
