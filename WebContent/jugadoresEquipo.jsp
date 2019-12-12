@@ -1,3 +1,4 @@
+<%@page import="modelo.Equipo"%>
 <%@page import="modelo.Posicion"%>
 <%@page import="modelo.Jugador"%>
 <%@page import="java.util.List"%>
@@ -29,7 +30,7 @@
                 class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav">
                     <li class="nav-item" role="presentation"><a class="nav-link" href="equipos.jsp"><strong>Equipos</strong></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="#" style="margin: 0px;"><strong>Clasificación</strong></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="clasificacion.html" style="margin: 0px;"><strong>Clasificación</strong></a></li>
                 </ul>
                 <form class="form-inline border rounded float-right mr-auto" target="_self">
                     <div class="form-group float-right"><label for="search-field"></label><input class="form-control search-field" type="search" name="search" id="search-field" style="background-color: rgb(255,187,124);margin: 1px;padding: 11px;"><i class="fa fa-search" style="margin: 12px;"></i></div>
@@ -39,7 +40,10 @@
     <div id="divInfo">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 text-center"><img src alt="<%=request.getParameter("equipo") %>" id="imagenEquipos" style="width: 250px;height: 250px;"></div>
+            	<% 	Modelo m3 = new Modelo();
+					Equipo e = m3.getEquipoConImagen(request.getParameter("equipo")); 
+				%>
+                <div class="col-md-6 text-center"><img src="data:image/jpeg;base64,<%=e.getBase64foto() %>" alt="<%=request.getParameter("equipo") %>" id="imagenEquipos" style="width: 250px;height: 250px;"></div>
                 <div class="col-md-6">
                     <p style="margin: 15px;"><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante augue, tristique et tristique ac, laoreet sed eros. Sed venenatis tincidunt tortor, non volutpat neque ultrices eu. Nam non dui tincidunt, euismod neque ac, porta
                         ex. Sed nec consequat ipsum, id posuere diam. Sed et arcu finibus, pellentesque lectus et, varius metus. Mauris sed dui a nunc iaculis eleifend congue vel libero. Ut molestie pellentesque orci, sed pellentesque ante ornare vel.
@@ -63,7 +67,7 @@
                     </thead>
                     <tbody>
 						<%	Modelo m = new Modelo();
-						List<Jugador> jugadores = m.getJugadoresPorEquipo(request.getParameter("equipo")); 
+						List<Jugador> jugadores = m.getJugadoresPorEquipoConImagen(request.getParameter("equipo")); 
 						
 						for(Jugador j: jugadores) {
 							// Creamos objeto posicion
@@ -80,7 +84,11 @@
 							
 							%>
 								<tr>
-									<td><%=j.getNombre() + " " + j.getApellidos() %></td>
+									<td>
+										<a href="verfichaJugador.jsp?jugador=<%=j.getId() %>">
+											<img src="data:image/jpeg;base64,<%=j.getBase64foto() %>" alt="<%=j.getNombre() + " " + j.getApellidos() %>" style="width: 54px;height: 40px;"><%=j.getNombre() + " " + j.getApellidos() %>
+										</a>
+									</td>
 									<td><%=p2.getPosicion() %></td>
 									<td><%=j.getAltura() %></td>
 									<td><%=j.getPeso() %></td>

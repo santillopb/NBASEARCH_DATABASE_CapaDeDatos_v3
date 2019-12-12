@@ -56,14 +56,14 @@
             	<%  // La vista se conecta con el modelo para obtener listado de equipos
             		Modelo m = new Modelo();
             		// Equipos de la conferencia oeste
-    			   	List<Equipo> equipos = m.equiposPorConferencia(2);
+    			   	List<Equipo> equipos = m.equiposPorConferenciaConImagen(2);
     			   	
     			   	// Recorremos con un for mejorado la lista de equipos
     			   	for(Equipo e: equipos) {
     			   		
     			   	%>
-            		<div class="col-6 col-sm-4 col-md-4" style="width: 115px;">
-            			<a href="jugadoresEquipo.jsp?equipo=<%=e.getNombre() %>"><img alt="<%=e.getNombre() %>"></a>
+            		<div class="col-6 col-sm-4 col-md-4">
+            			<a href="jugadoresEquipo.jsp?equipo=<%=e.getNombre() %>"><img src="data:image/jpeg;base64,<%=e.getBase64foto() %>" alt="<%=e.getNombre() %>" style="width: 115px;"></a>
             		</div>	
             	<%
             		}
@@ -84,14 +84,14 @@
            		<%  // La vista se conecta con el modelo para obtener listado de equipos
             		m = new Modelo();
             		// Equipos de la conferencia este
-    			   	equipos = m.equiposPorConferencia(1);
+    			   	equipos = m.equiposPorConferenciaConImagen(1);
     			   	
     			   	// Recorremos con un for mejorado la lista de equipos
     			   	for(Equipo e: equipos) {
     			   		
     			   	%>
-            		<div class="col-6 col-sm-4 col-md-4" style="width: 115px;">
-            			<a href="jugadoresEquipo.jsp?equipo=<%=e.getNombre() %>"><img alt="<%=e.getNombre() %>"></a>
+            		<div class="col-6 col-sm-4 col-md-4">
+            			<a href="jugadoresEquipo.jsp?equipo=<%=e.getNombre() %>"><img src="data:image/jpeg;base64,<%=e.getBase64foto() %>" alt="<%=e.getNombre() %>" style="width: 115px;"></a>
             		</div>	
             	<%
             		}

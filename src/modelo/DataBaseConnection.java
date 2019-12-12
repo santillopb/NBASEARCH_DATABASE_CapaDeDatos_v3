@@ -40,7 +40,7 @@ public class DataBaseConnection {
 		return conn;
 	}
 	
-	// Recupera vuelos
+	// Recupera equipos
 		public ResultSet dameEquipos() throws SQLException {
 			ResultSet rs = null;
 			String query = "select * from equipo";
@@ -97,6 +97,7 @@ public class DataBaseConnection {
 			return rs;
 		}
 		
+		// Consultar la posicion por id
 		public ResultSet damePosicion(Posicion p) throws SQLException {
 			ResultSet rs = null;
 			
@@ -136,6 +137,9 @@ public class DataBaseConnection {
 			}
 			return rs;
 		}
+		
+		
+		
 
 		public ResultSet dameEquiposPorConferencia(int idConferencia) throws SQLException {
 			ResultSet rs = null;
@@ -178,5 +182,93 @@ public class DataBaseConnection {
 			}
 			
 		}
+
+		// Insertar un equipo
+		public void insertaEquipo(Equipo eq) throws SQLException {
+			// TODO Auto-generated method stub
+			String query = "INSERT INTO `nba`.`equipo` (`idConferencia`, `idDivision`, `nombre`)"
+					+ " VALUES (?, ?, ?);";
+			
+			PreparedStatement stmt;
+			
+			try {
+				conn = getConnection();
+				stmt = conn.prepareStatement(query);
+				stmt.setInt(1, eq.getIdConferencia());
+				stmt.setInt(2, eq.getIdDivision());
+				stmt.setString(3, eq.getNombre());
+				stmt.executeUpdate();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		// Insertar un jugador
+		public void insertaJugador(Jugador j) throws SQLException {
+			// TODO Auto-generated method stub
+			String query = "INSERT INTO `nba`.`jugadoractual` "
+					+ "(`idEquipo`, `nombre`, `apellidos`, `idPosicion`, `altura`, `peso`, `dorsal`)"
+					+ " VALUES (?, ?, ?, ?, ?, ?, ?)"; 
+					
+			PreparedStatement stmt;
+			
+			try {
+				conn = getConnection();
+				stmt = conn.prepareStatement(query);
+				stmt.setInt(1, j.getIdEquipo());
+				stmt.setString(2, j.getNombre());
+				stmt.setString(3, j.getApellidos());
+				stmt.setInt(4, j.getIdPosicion());
+				stmt.setDouble(5, j.getAltura());
+				stmt.setDouble(6, j.getPeso());
+				stmt.setInt(7, j.getDorsal());
+				stmt.executeUpdate();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		// Consultar un equipo con imagen
+		public ResultSet dameEquipo(String nombreEquipo) throws SQLException {
+			ResultSet rs = null;
+			
+			String query = "SELECT * FROM nba.equipo WHERE nombre = ?";
+			
+			PreparedStatement stmt;
+			
+			try {
+				conn = getConnection();
+				stmt = conn.prepareStatement(query);
+				stmt.setString(1, nombreEquipo);
+				rs = stmt.executeQuery();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return rs;
+		}
+
+		public ResultSet dameJugador(int idJugador) throws SQLException {
+			ResultSet rs = null;
+			
+			String query = "SELECT * FROM nba.jugadoractual WHERE id = ?";
+			
+			PreparedStatement stmt;
+			
+			try {
+				conn = getConnection();
+				stmt = conn.prepareStatement(query);
+				stmt.setInt(1, idJugador);
+				rs = stmt.executeQuery();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return rs;
+		}
+
+		
 
 }
